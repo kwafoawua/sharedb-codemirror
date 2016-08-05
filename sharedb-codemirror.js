@@ -40,6 +40,7 @@ module.exports = ShareDBCodeMirror;
  *      supported.
  *    - verbose: optional. If provided and true, debug messages will be printed
  *      to the console.
+ *    - initialData: optional. Add initial data if needed.
  * @param {function(Object)=} callback - optional. will be called when everything
  *    is hooked up. The first argument will be the error that occurred, if any.
  * @return {ShareDBCodeMirror} the created ShareDBCodeMirror object
@@ -47,6 +48,7 @@ module.exports = ShareDBCodeMirror;
 ShareDBCodeMirror.attachDocToCodeMirror = function(shareDoc, codeMirror, options, callback) {
   var key = options.key;
   var verbose = Boolean(options.verbose);
+  var initialData = typeof options.initialData == 'string' ? options.initialData : '';
 
   var shareDBCodeMirror = new ShareDBCodeMirror(codeMirror, {
     verbose: verbose,
@@ -98,7 +100,7 @@ ShareDBCodeMirror.attachDocToCodeMirror = function(shareDoc, codeMirror, options
         console.log('ShareDBCodeMirror: creating as text');
       }
       var newDoc = {};
-      newDoc[key] = '';
+      newDoc[key] = initialData;
       shareDoc.create(newDoc);
     }
 
